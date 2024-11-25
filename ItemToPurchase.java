@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class ItemToPurchase {
     private String itemName;
     private String itemDescription;
@@ -6,60 +8,35 @@ public class ItemToPurchase {
 
     // Default constructor
     public ItemToPurchase() {
-        itemName = "none";
-        itemDescription = "none";
-        itemPrice = 0;
-        itemQuantity = 0;
+        this.itemName = "none";
+        this.itemDescription = "none";
+        this.itemPrice = 0;
+        this.itemQuantity = 0;
     }
 
     // Parameterized constructor
-    public ItemToPurchase(String itemName, String itemDescription, int itemPrice, int itemQuantity) {
-        this.itemName = itemName;
-        this.itemDescription = itemDescription;
-        this.itemPrice = itemPrice;
-        this.itemQuantity = itemQuantity;
+    public ItemToPurchase(String name, String description, int price, int quantity) {
+        this.itemName = name;
+        this.itemDescription = description;
+        this.itemPrice = price;
+        this.itemQuantity = quantity;
     }
 
-    // Mutators
-    public void setName(String itemName) {
-        this.itemName = itemName;
-    }
+    // Mutators and accessors
+    public void setName(String name) { this.itemName = name; }
+    public String getName() { return itemName; }
+    public void setDescription(String description) { this.itemDescription = description; }
+    public String getDescription() { return itemDescription; }
+    public void setPrice(int price) { this.itemPrice = price; }
+    public int getPrice() { return itemPrice; }
+    public void setQuantity(int quantity) { this.itemQuantity = quantity; }
+    public int getQuantity() { return itemQuantity; }
 
-    public void setDescription(String itemDescription) {
-        this.itemDescription = itemDescription;
-    }
-
-    public void setPrice(int itemPrice) {
-        this.itemPrice = itemPrice;
-    }
-
-    public void setQuantity(int itemQuantity) {
-        this.itemQuantity = itemQuantity;
-    }
-
-    // Accessors
-    public String getName() {
-        return itemName;
-    }
-
-    public String getDescription() {
-        return itemDescription;
-    }
-
-    public int getPrice() {
-        return itemPrice;
-    }
-
-    public int getQuantity() {
-        return itemQuantity;
-    }
-
-    // Print item cost
+    // Methods
     public void printItemCost() {
         System.out.println(itemName + " " + itemQuantity + " @ $" + itemPrice + " = $" + (itemPrice * itemQuantity));
     }
 
-    // Print item description
     public void printItemDescription() {
         System.out.println(itemName + ": " + itemDescription);
     }

@@ -7,33 +7,28 @@ public class ShoppingCart {
 
     // Default constructor
     public ShoppingCart() {
-        customerName = "none";
-        currentDate = "January 1, 2016";
-        cartItems = new ArrayList<>();
+        this.customerName = "none";
+        this.currentDate = "January 1, 2016";
+        this.cartItems = new ArrayList<>();
     }
 
     // Parameterized constructor
     public ShoppingCart(String customerName, String currentDate) {
         this.customerName = customerName;
         this.currentDate = currentDate;
-        cartItems = new ArrayList<>();
+        this.cartItems = new ArrayList<>();
     }
 
     // Accessors
-    public String getCustomerName() {
-        return customerName;
-    }
+    public String getCustomerName() { return customerName; }
+    public String getDate() { return currentDate; }
 
-    public String getDate() {
-        return currentDate;
-    }
-
-    // Add item to cart
+    // Add item
     public void addItem(ItemToPurchase item) {
         cartItems.add(item);
     }
 
-    // Remove item from cart
+    // Remove item
     public void removeItem(String itemName) {
         boolean found = false;
         for (int i = 0; i < cartItems.size(); i++) {
@@ -49,20 +44,20 @@ public class ShoppingCart {
     }
 
     // Modify item
-    public void modifyItem(ItemToPurchase item) {
+    public void modifyItem(ItemToPurchase newItem) {
         boolean found = false;
-        for (ItemToPurchase cartItem : cartItems) {
-            if (cartItem.getName().equals(item.getName())) {
+        for (ItemToPurchase item : cartItems) {
+            if (item.getName().equals(newItem.getName())) {
+                if (!newItem.getDescription().equals("none")) {
+                    item.setDescription(newItem.getDescription());
+                }
+                if (newItem.getPrice() != 0) {
+                    item.setPrice(newItem.getPrice());
+                }
+                if (newItem.getQuantity() != 0) {
+                    item.setQuantity(newItem.getQuantity());
+                }
                 found = true;
-                if (!item.getDescription().equals("none")) {
-                    cartItem.setDescription(item.getDescription());
-                }
-                if (item.getPrice() != 0) {
-                    cartItem.setPrice(item.getPrice());
-                }
-                if (item.getQuantity() != 0) {
-                    cartItem.setQuantity(item.getQuantity());
-                }
                 break;
             }
         }
@@ -71,7 +66,7 @@ public class ShoppingCart {
         }
     }
 
-    // Get number of items in cart
+    // Get number of items
     public int getNumItemsInCart() {
         int totalQuantity = 0;
         for (ItemToPurchase item : cartItems) {
@@ -93,9 +88,8 @@ public class ShoppingCart {
     public void printTotal() {
         System.out.println(customerName + "'s Shopping Cart - " + currentDate);
         System.out.println("Number of Items: " + getNumItemsInCart());
-
         if (cartItems.isEmpty()) {
-            System.out.println("\nSHOPPING CART IS EMPTY");
+            System.out.println("SHOPPING CART IS EMPTY");
         } else {
             for (ItemToPurchase item : cartItems) {
                 item.printItemCost();

@@ -1,9 +1,8 @@
 import java.util.Scanner;
 
 public class ShoppingCartManager {
-
     public static void printMenu() {
-        System.out.println("\nMENU");
+        System.out.println("MENU");
         System.out.println("a - Add item to cart");
         System.out.println("d - Remove item from cart");
         System.out.println("c - Change item quantity");
@@ -12,10 +11,10 @@ public class ShoppingCartManager {
         System.out.println("q - Quit");
     }
 
-    public static void executeMenu(char choice, ShoppingCart cart, Scanner scnr) {
-        switch (choice) {
-            case 'a':
-                System.out.println("\nADD ITEM TO CART");
+    public static void executeMenu(char option, ShoppingCart cart, Scanner scnr) {
+        switch (option) {
+            case 'a': {
+                System.out.println("ADD ITEM TO CART");
                 System.out.print("Enter the item name: ");
                 String name = scnr.nextLine();
                 System.out.print("Enter the item description: ");
@@ -24,43 +23,39 @@ public class ShoppingCartManager {
                 int price = scnr.nextInt();
                 System.out.print("Enter the item quantity: ");
                 int quantity = scnr.nextInt();
-                scnr.nextLine(); // Clear buffer
+                scnr.nextLine(); // Consume newline
                 cart.addItem(new ItemToPurchase(name, description, price, quantity));
                 break;
-
-            case 'd':
-                System.out.println("\nREMOVE ITEM FROM CART");
+            }
+            case 'd': {
+                System.out.println("REMOVE ITEM FROM CART");
                 System.out.print("Enter name of item to remove: ");
-                String itemNameToRemove = scnr.nextLine();
-                cart.removeItem(itemNameToRemove);
+                String name = scnr.nextLine();
+                cart.removeItem(name);
                 break;
-
-            case 'c':
-                System.out.println("\nCHANGE ITEM QUANTITY");
+            }
+            case 'c': {
+                System.out.println("CHANGE ITEM QUANTITY");
                 System.out.print("Enter the item name: ");
-                String itemNameToModify = scnr.nextLine();
+                String name = scnr.nextLine();
                 System.out.print("Enter the new quantity: ");
-                int newQuantity = scnr.nextInt();
-                scnr.nextLine(); // Clear buffer
-                ItemToPurchase itemToModify = new ItemToPurchase();
-                itemToModify.setName(itemNameToModify);
-                itemToModify.setQuantity(newQuantity);
-                cart.modifyItem(itemToModify);
+                int quantity = scnr.nextInt();
+                scnr.nextLine(); // Consume newline
+                cart.modifyItem(new ItemToPurchase(name, "none", 0, quantity));
                 break;
-
-            case 'i':
-                System.out.println("\nOUTPUT ITEMS' DESCRIPTIONS");
+            }
+            case 'i': {
+                System.out.println("OUTPUT ITEMS' DESCRIPTIONS");
                 cart.printDescriptions();
                 break;
-
-            case 'o':
-                System.out.println("\nOUTPUT SHOPPING CART");
+            }
+            case 'o': {
+                System.out.println("OUTPUT SHOPPING CART");
                 cart.printTotal();
                 break;
-
+            }
             case 'q':
                 break;
-
             default:
                 System.out.println("Invalid option. Try again.");
         }
@@ -69,24 +64,24 @@ public class ShoppingCartManager {
     public static void main(String[] args) {
         Scanner scnr = new Scanner(System.in);
 
-        // Input customer name and date
+        // Input customer info
         System.out.println("Enter customer's name:");
         String customerName = scnr.nextLine();
         System.out.println("Enter today's date:");
-        String currentDate = scnr.nextLine();
-
-        ShoppingCart cart = new ShoppingCart(customerName, currentDate);
-
+        String date = scnr.nextLine();
         System.out.println("\nCustomer name: " + customerName);
-        System.out.println("Today's date: " + currentDate);
+        System.out.println("Today's date: " + date);
 
-        char choice = ' ';
-        while (choice != 'q') {
+        ShoppingCart cart = new ShoppingCart(customerName, date);
+
+        char choice;
+        do {
             printMenu();
-            System.out.print("\nChoose an option: ");
-            choice = scnr.next().charAt(0);
-            scnr.nextLine(); // Clear buffer
+            System.out.println("\nChoose an option:");
+            choice = scnr.nextLine().charAt(0);
             executeMenu(choice, cart, scnr);
-        }
+        } while (choice != 'q');
+
+        scnr.close();
     }
 }
