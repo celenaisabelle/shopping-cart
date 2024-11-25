@@ -10,7 +10,6 @@ public class ShoppingCartManager {
         System.out.println("i - Output items' descriptions");
         System.out.println("o - Output shopping cart");
         System.out.println("q - Quit");
-        System.out.print("\nChoose an option: ");
     }
 
     public static void executeMenu(char choice, ShoppingCart cart, Scanner scnr) {
@@ -25,7 +24,7 @@ public class ShoppingCartManager {
                 int price = scnr.nextInt();
                 System.out.print("Enter the item quantity: ");
                 int quantity = scnr.nextInt();
-                scnr.nextLine(); // Consume leftover newline
+                scnr.nextLine(); // Clear buffer
                 cart.addItem(new ItemToPurchase(name, description, price, quantity));
                 break;
 
@@ -42,7 +41,7 @@ public class ShoppingCartManager {
                 String itemNameToModify = scnr.nextLine();
                 System.out.print("Enter the new quantity: ");
                 int newQuantity = scnr.nextInt();
-                scnr.nextLine(); // Consume leftover newline
+                scnr.nextLine(); // Clear buffer
                 ItemToPurchase itemToModify = new ItemToPurchase();
                 itemToModify.setName(itemNameToModify);
                 itemToModify.setQuantity(newQuantity);
@@ -84,8 +83,9 @@ public class ShoppingCartManager {
         char choice = ' ';
         while (choice != 'q') {
             printMenu();
+            System.out.print("\nChoose an option: ");
             choice = scnr.next().charAt(0);
-            scnr.nextLine(); // Consume leftover newline
+            scnr.nextLine(); // Clear buffer
             executeMenu(choice, cart, scnr);
         }
     }
